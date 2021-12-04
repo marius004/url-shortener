@@ -1,12 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
+	"github.com/marius004/url-shortener/api"
 	"github.com/marius004/url-shortener/database"
 	"github.com/marius004/url-shortener/internal"
 	"github.com/marius004/url-shortener/internal/services"
-	"github.com/marius004/url-shortener/models"
 )
 
 type Server struct {
@@ -18,13 +19,16 @@ type Server struct {
 }
 
 func (s *Server) Serve() {
-	s.db.AutoMigrate(&models.User{})
+	api := &api.API{}
+	fmt.Println(api)
 }
 
 func NewServer(config *internal.Config, db *database.Database, logger *log.Logger) *Server {
 	var (
-		userService = db.UserService()
-		services    = services.New(userService)
+		userService     = db.UserService()
+		shortUrlService = db.ShortUrlService()
+
+		services = services.New(userService, shortUrlService)
 	)
 
 	return &Server{

@@ -30,3 +30,7 @@ func (db *Database) AutoMigrate(dst ...interface{}) error {
 func (db *Database) UserService() services.UserService {
 	return NewUserService(db)
 }
+
+func (db *Database) ShortUrlService() services.ShortUrlService {
+	return NewShortUrlService(db)
+}
