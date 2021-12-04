@@ -24,7 +24,7 @@ func GenerateDatabaseDSN(config *internal.Config) string {
 }
 
 func (db *Database) AutoMigrate(dst ...interface{}) error {
-	return db.Conn.AutoMigrate(dst)
+	return db.Conn.AutoMigrate(dst...)
 }
 
 func (db *Database) UserService() services.UserService {

@@ -6,6 +6,7 @@ import (
 	"github.com/marius004/url-shortener/database"
 	"github.com/marius004/url-shortener/internal"
 	"github.com/marius004/url-shortener/internal/services"
+	"github.com/marius004/url-shortener/models"
 )
 
 type Server struct {
@@ -17,6 +18,7 @@ type Server struct {
 }
 
 func (s *Server) Serve() {
+	s.db.AutoMigrate(&models.User{})
 }
 
 func NewServer(config *internal.Config, db *database.Database, logger *log.Logger) *Server {

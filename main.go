@@ -15,6 +15,6 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	server := NewServer(config, db, log.Default())
+	server := NewServer(config, db, internal.NewLogger("logs.log"))
 	server.Serve()
 }
