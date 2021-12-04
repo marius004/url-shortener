@@ -1,17 +1,20 @@
 package main
 
 import (
-	"fmt"
 	"log"
+
+	"github.com/marius004/url-shortener/database"
+	"github.com/marius004/url-shortener/internal"
 )
 
 func main() {
-	config := NewConfig()
-	_, err := Connect(CreateDatabaseDSN(config))
+	config := internal.NewConfig()
+	db, err := database.ConnectToPSQL(database.GenerateDatabaseDSN(config))
 
 	if err != nil {
 		log.Fatalln(err)
-	} else {
-		fmt.Println("It Worked")
 	}
+
+	server := NewServer(config, db, log.Default())
+	server.Serve()
 }
